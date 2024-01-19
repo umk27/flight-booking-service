@@ -1,5 +1,6 @@
 package com.backend.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 public class FlightOfferData {
 
     private String id;
+    private JsonNode flightOffer;
     private List<Itinerarie> itineraries;
     private Price price;
 

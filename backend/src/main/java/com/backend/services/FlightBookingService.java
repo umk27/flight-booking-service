@@ -1,13 +1,40 @@
 package com.backend.services;
 
 import com.backend.model.FlightOfferData;
+import com.backend.repositories.AuthorizationRepository;
+import com.backend.repositories.AmadeusRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FlightBookingService {
 
-/*public FlightOfferData flightOfferSearch(){
+    private final AuthorizationRepository authorizationRepository;
+
+    private final AmadeusRepository amadeusRepository;
+
+    public FlightBookingService(AuthorizationRepository authorizationRepository, AmadeusRepository amadeusRepository) {
+        this.authorizationRepository = authorizationRepository;
+        this.amadeusRepository = amadeusRepository;
+    }
 
 
-}*/
+    public List<FlightOfferData> flightOfferSearch(String originLocationCode, String destinationLocationCode,
+                                                   String departureDate, int adults, int max) {
+
+        String token = authorizationRepository.authorization();
+
+        return amadeusRepository.flightOffersSearch(token, originLocationCode, destinationLocationCode,
+                departureDate, adults, max);
+
+    }
+
+    public FlightOfferData flightOfferPrice(FlightOfferData flightOfferData){
+
+        String token = authorizationRepository.authorization();
+
+        return amadeusRepository.flightOfferPrice(token, flightOfferData);
+
+    }
 }

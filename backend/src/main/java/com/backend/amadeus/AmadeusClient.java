@@ -1,6 +1,7 @@
 package com.backend.amadeus;
 
 import com.backend.model.UserData;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +29,9 @@ public interface AmadeusClient {
                               @RequestParam(name = "returnDate") String returnDate,
                               @RequestParam(name = "adults") int adults, @RequestParam(name = "max") int max);
 
-    @PostMapping(value = "v1/shopping/flight-offers/pricing", consumes = "application/json")
+    @PostMapping(value = "v1/shopping/flight-offers/pricing")
     String flightOffersPrice(@RequestHeader(name = "Authorization") String authorization,
-                             String body);
+                             JsonNode flightOffer);
 
     @PostMapping(value = "v1/booking/flight-orders", consumes = "application/json")
     String flightCreateOrders(@RequestHeader(name = "Authorization") String authorization,

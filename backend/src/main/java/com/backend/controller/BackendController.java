@@ -1,7 +1,11 @@
 package com.backend.controller;
 
+import com.backend.model.FlightOfferData;
+import com.backend.services.FlightBookingService;
 import com.backend.travelpayouts.TravelPayoutsClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("backend")
@@ -9,8 +13,11 @@ public class BackendController {
 
     private final TravelPayoutsClient travelPayoutsClient;
 
-    public BackendController(TravelPayoutsClient travelPayoutsClient) {
+    private final FlightBookingService flightBookingService;
+
+    public BackendController(TravelPayoutsClient travelPayoutsClient, FlightBookingService flightBookingService) {
         this.travelPayoutsClient = travelPayoutsClient;
+        this.flightBookingService = flightBookingService;
     }
 
 
@@ -25,17 +32,19 @@ public class BackendController {
 
 
     @GetMapping("flightOfferSearch")
-    public String flightOfferSearch(@RequestParam(name = "originLocationCode") String originLocationCode,
-                                    @RequestParam(name = "destinationLocationCode") String destinationLocationCode,
-                                    @RequestParam(name = "departureDate") String departureDate,
-                                    @RequestParam(name = "adults") int adults, @RequestParam(name = "max") int max) {
-        System.out.println(originLocationCode);
-        System.out.println(destinationLocationCode);
-        System.out.println(departureDate);
-        System.out.println(adults);
-        System.out.println(max);
+    public List<FlightOfferData> flightOfferSearch(@RequestParam(name = "originLocationCode") String originLocationCode,
+                                                   @RequestParam(name = "destinationLocationCode") String destinationLocationCode,
+                                                   @RequestParam(name = "departureDate") String departureDate,
+                                                   @RequestParam(name = "adults") int adults, @RequestParam(name = "max") int max) {
 
-        return "Ok";
+        return flightBookingService.flightOfferSearch(originLocationCode, destinationLocationCode,departureDate,
+                adults, max);
 
+    }
+
+
+    @GetMapping("flightOfferPrice")
+    public void flightOfferPrice(@RequestBody FlightOfferData flightOfferData){
+        System.out.println(flightOfferData);
     }
 }
