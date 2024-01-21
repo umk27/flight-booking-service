@@ -2,6 +2,7 @@ package com.backend.repositories;
 
 import com.backend.amadeus.AmadeusClient;
 import com.backend.model.FlightOfferData;
+import com.backend.parsers.FlightOfferPriceParser;
 import com.backend.parsers.FlightOfferSearchParser;
 import org.springframework.stereotype.Service;
 
@@ -12,24 +13,34 @@ public class AmadeusRepository {
 
     private final AmadeusClient amadeusClient;
 
-    private final FlightOfferSearchParser parser;
+    private final FlightOfferSearchParser flightOfferSearchParser;
 
-    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser) {
+    private final FlightOfferPriceParser flightOfferPriceParser;
+
+    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser) {
         this.amadeusClient = amadeusClient;
-        this.parser = parser;
+        this.flightOfferSearchParser = parser;
+        this.flightOfferPriceParser = flightOfferPriceParser;
     }
 
 
     public List<FlightOfferData> flightOffersSearch(String authorization, String originLocationCode, String destinationLocationCode,
-                                                    String departureDate, int adults, int max){
+                                                    String departureDate, int adults, int max) {
 
         String json = amadeusClient.flightOffersSearch(authorization, originLocationCode, destinationLocationCode,
                 departureDate, adults, max);
 
-        return parser.parse(json);
+        return flightOfferSearchParser.parse(json);
     }
 
-    public FlightOfferData flightOfferPrice(String token, FlightOfferData flightOfferData){
+    public FlightOfferData flightOfferPrice(String token, FlightOfferData flightOfferData) {
         String json = amadeusClient.flightOffersPrice(token, flightOfferData.getFlightOffer());
+        String total = flightOfferPriceParser.parse(json);
+        if (total != null){
+            FlightOfferData.Price price1 = flightOfferData.getPrice();
+            price1.setTotal(total);
+            flightOfferData.setPrice(price1);
+        }
+        return flightOfferData;
     }
 }

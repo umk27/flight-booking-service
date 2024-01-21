@@ -44,7 +44,7 @@ public class BackendController {
 
 
     @GetMapping("flightOfferPrice")
-    public void flightOfferPrice(@RequestBody FlightOfferData flightOfferData){
-        System.out.println(flightOfferData);
+    public FlightOfferData flightOfferPrice(@RequestBody FlightOfferData flightOfferData){
+        return flightBookingService.flightOfferPrice(flightOfferData);
     }
 }
