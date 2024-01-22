@@ -43,7 +43,7 @@ public class BackendController {
     }
 
 
-    @GetMapping("flightOfferPrice")
+    @PostMapping("flightOfferPrice")
     public FlightOfferData flightOfferPrice(@RequestBody FlightOfferData flightOfferData){
         return flightBookingService.flightOfferPrice(flightOfferData);
     }

@@ -1,9 +1,11 @@
 package com.backend.repositories;
 
 import com.backend.amadeus.AmadeusClient;
+import com.backend.factory.FlightOfferPriceJsonFactory;
 import com.backend.model.FlightOfferData;
 import com.backend.parsers.FlightOfferPriceParser;
 import com.backend.parsers.FlightOfferSearchParser;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +19,13 @@ public class AmadeusRepository {
 
     private final FlightOfferPriceParser flightOfferPriceParser;
 
-    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser) {
+    private final FlightOfferPriceJsonFactory flightOfferPriceJsonFactory;
+
+    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser, FlightOfferPriceJsonFactory flightOfferPriceJsonFactory) {
         this.amadeusClient = amadeusClient;
         this.flightOfferSearchParser = parser;
         this.flightOfferPriceParser = flightOfferPriceParser;
+        this.flightOfferPriceJsonFactory = flightOfferPriceJsonFactory;
     }
 
 
@@ -34,12 +39,15 @@ public class AmadeusRepository {
     }
 
     public FlightOfferData flightOfferPrice(String token, FlightOfferData flightOfferData) {
-        String json = amadeusClient.flightOffersPrice(token, flightOfferData.getFlightOffer());
-        String total = flightOfferPriceParser.parse(json);
-        if (total != null){
-            FlightOfferData.Price price1 = flightOfferData.getPrice();
-            price1.setTotal(total);
-            flightOfferData.setPrice(price1);
+        JsonNode flightOfferRequest = flightOfferPriceJsonFactory.build(flightOfferData.getFlightOffer());
+        String str = flightOfferRequest.toString();
+        System.out.println(str);
+        String json = amadeusClient.flightOffersPrice(token, str);
+        FlightOfferData flightOfferPriceData = flightOfferPriceParser.parse(json);
+        if (flightOfferPriceData.getPrice() != null) {
+            FlightOfferData.Price price = flightOfferData.getPrice();
+            price.setTotal(flightOfferPriceData.getPrice().getTotal());
+            flightOfferData.setPrice(price);
         }
         return flightOfferData;
     }

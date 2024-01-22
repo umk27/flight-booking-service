@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class FlightOfferSearchParser {
 
+
     public List<FlightOfferData> parse(String json) {
 
         ObjectMapper mapper = new ObjectMapper();

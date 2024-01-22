@@ -29,13 +29,13 @@ public interface AmadeusClient {
                               @RequestParam(name = "returnDate") String returnDate,
                               @RequestParam(name = "adults") int adults, @RequestParam(name = "max") int max);
 
-    @PostMapping(value = "v1/shopping/flight-offers/pricing")
+    @PostMapping(value = "v1/shopping/flight-offers/pricing", consumes = "application/json")
     String flightOffersPrice(@RequestHeader(name = "Authorization") String authorization,
-                             JsonNode flightOffer);
+                             String flightOffer);
 
-    @PostMapping(value = "v1/booking/flight-orders", consumes = "application/json")
+    @PostMapping(value = "v1/booking/flight-orders")
     String flightCreateOrders(@RequestHeader(name = "Authorization") String authorization,
-                              String body);
+                              JsonNode body);
 
 
 }
