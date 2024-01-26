@@ -1,8 +1,11 @@
 package com.backend.repositories;
 
 import com.backend.amadeus.AmadeusClient;
+import com.backend.factory.FlightCreateOrderJsonFactory;
 import com.backend.factory.FlightOfferPriceJsonFactory;
+import com.backend.model.CreateOrderData;
 import com.backend.model.FlightOfferData;
+import com.backend.parsers.FlightCreateOrderParser;
 import com.backend.parsers.FlightOfferPriceParser;
 import com.backend.parsers.FlightOfferSearchParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,13 +22,19 @@ public class AmadeusRepository {
 
     private final FlightOfferPriceParser flightOfferPriceParser;
 
+    private final FlightCreateOrderParser flightCreateOrderParser;
+
     private final FlightOfferPriceJsonFactory flightOfferPriceJsonFactory;
 
-    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser, FlightOfferPriceJsonFactory flightOfferPriceJsonFactory) {
+    private final FlightCreateOrderJsonFactory flightCreateOrderJsonFactory;
+
+    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser, FlightCreateOrderParser flightCreateOrderParser, FlightOfferPriceJsonFactory flightOfferPriceJsonFactory, FlightCreateOrderJsonFactory flightCreateOrderJsonFactory) {
         this.amadeusClient = amadeusClient;
         this.flightOfferSearchParser = parser;
         this.flightOfferPriceParser = flightOfferPriceParser;
+        this.flightCreateOrderParser = flightCreateOrderParser;
         this.flightOfferPriceJsonFactory = flightOfferPriceJsonFactory;
+        this.flightCreateOrderJsonFactory = flightCreateOrderJsonFactory;
     }
 
 
@@ -50,5 +59,16 @@ public class AmadeusRepository {
             flightOfferData.setPrice(price);
         }
         return flightOfferData;
+    }
+
+    public String flightCreateOrder(String token, CreateOrderData createOrderData) {
+        JsonNode createOrderRequest = flightCreateOrderJsonFactory.build(createOrderData);
+        String str = createOrderRequest.toString();
+        String json = amadeusClient.flightCreateOrders(token, str);
+        return flightCreateOrderParser.parse(json);
+    }
+
+    public void flightDeleteOrder(String token, String id){
+        amadeusClient.flightDeleteOrders(token, id);
     }
 }

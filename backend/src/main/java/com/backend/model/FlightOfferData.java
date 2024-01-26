@@ -68,6 +68,6 @@ public class FlightOfferData {
     @ToString
     public static class Price {
         String currency;
-        String total = "";
+        String total;
     }
 }

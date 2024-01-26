@@ -1,5 +1,6 @@
 package com.backend.services;
 
+import com.backend.model.CreateOrderData;
 import com.backend.model.FlightOfferData;
 import com.backend.repositories.AuthorizationRepository;
 import com.backend.repositories.AmadeusRepository;
@@ -30,11 +31,27 @@ public class FlightBookingService {
 
     }
 
-    public FlightOfferData flightOfferPrice(FlightOfferData flightOfferData){
+    public FlightOfferData flightOfferPrice(FlightOfferData flightOfferData) {
 
         String token = authorizationRepository.authorization();
 
         return amadeusRepository.flightOfferPrice(token, flightOfferData);
+
+    }
+
+    public String flightCreateOrder(CreateOrderData createOrderData) {
+
+        String token = authorizationRepository.authorization();
+
+        return amadeusRepository.flightCreateOrder(token, createOrderData);
+
+    }
+
+    public void flightDeleteOrder(String id) {
+
+        String token = authorizationRepository.authorization();
+
+        amadeusRepository.flightDeleteOrder(token, id);
 
     }
 }

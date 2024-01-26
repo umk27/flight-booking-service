@@ -1,12 +1,8 @@
 package com.backend.amadeus;
 
 import com.backend.model.UserData;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "amadeusClient", url = "https://test.api.amadeus.com")
 public interface AmadeusClient {
@@ -33,9 +29,11 @@ public interface AmadeusClient {
     String flightOffersPrice(@RequestHeader(name = "Authorization") String authorization,
                              String flightOffer);
 
-    @PostMapping(value = "v1/booking/flight-orders")
+    @PostMapping(value = "v1/booking/flight-orders", consumes = "application/json")
     String flightCreateOrders(@RequestHeader(name = "Authorization") String authorization,
-                              JsonNode body);
+                              String body);
 
-
+    @DeleteMapping("v1/booking/flight-orders/{id}")
+    void flightDeleteOrders(@RequestHeader(name = "Authorization") String authorization,
+                            @PathVariable(name = "id") String id);
 }

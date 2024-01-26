@@ -1,8 +1,11 @@
 package com.backend.controller;
 
+import com.backend.factory.FlightCreateOrderJsonFactory;
+import com.backend.model.CreateOrderData;
 import com.backend.model.FlightOfferData;
 import com.backend.services.FlightBookingService;
 import com.backend.travelpayouts.TravelPayoutsClient;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +18,12 @@ public class BackendController {
 
     private final FlightBookingService flightBookingService;
 
-    public BackendController(TravelPayoutsClient travelPayoutsClient, FlightBookingService flightBookingService) {
+    private final FlightCreateOrderJsonFactory flightCreateOrderJsonFactory;
+
+    public BackendController(TravelPayoutsClient travelPayoutsClient, FlightBookingService flightBookingService, FlightCreateOrderJsonFactory flightCreateOrderJsonFactory) {
         this.travelPayoutsClient = travelPayoutsClient;
         this.flightBookingService = flightBookingService;
+        this.flightCreateOrderJsonFactory = flightCreateOrderJsonFactory;
     }
 
 
@@ -46,5 +52,16 @@ public class BackendController {
     @PostMapping("flightOfferPrice")
     public FlightOfferData flightOfferPrice(@RequestBody FlightOfferData flightOfferData){
         return flightBookingService.flightOfferPrice(flightOfferData);
+    }
+
+
+    @PostMapping("flightCreateOrder")
+    public String flightCreateOrder(@RequestBody CreateOrderData createOrderData){;
+        return flightBookingService.flightCreateOrder(createOrderData);
+    }
+
+    @DeleteMapping("flightDeleteOrder/{id}")
+    public void flightCreateOrder(@PathVariable(name = "id") String id){;
+         flightBookingService.flightDeleteOrder(id);
     }
 }
