@@ -5,7 +5,6 @@ import com.backend.model.CreateOrderData;
 import com.backend.model.FlightOfferData;
 import com.backend.services.FlightBookingService;
 import com.backend.travelpayouts.TravelPayoutsClient;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +25,10 @@ public class BackendController {
         this.flightCreateOrderJsonFactory = flightCreateOrderJsonFactory;
     }
 
+    @GetMapping("hello")
+    public String hello(){
+        return "Hello";
+    }
 
     @GetMapping("getIATACode")
     public String getIATACode(@RequestParam(name = "originLocation") String originLocation,
