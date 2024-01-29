@@ -5,6 +5,7 @@ import com.backend.model.CreateOrderData;
 import com.backend.model.FlightOfferData;
 import com.backend.services.FlightBookingService;
 import com.backend.travelpayouts.TravelPayoutsClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +26,12 @@ public class BackendController {
         this.flightCreateOrderJsonFactory = flightCreateOrderJsonFactory;
     }
 
+    @Value("${tmpVar}")
+    private int tmpVar;
+
     @GetMapping("hello")
-    public String hello(){
-        return "Hello";
+    public int hello(){
+        return tmpVar;
     }
 
     @GetMapping("getIATACode")
