@@ -8,6 +8,7 @@ import com.backend.model.FlightOfferData;
 import com.backend.parsers.FlightCreateOrderParser;
 import com.backend.parsers.FlightOfferPriceParser;
 import com.backend.parsers.FlightOfferSearchParser;
+import com.backend.parsers.FlightOrderManagementParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +25,18 @@ public class AmadeusRepository {
 
     private final FlightCreateOrderParser flightCreateOrderParser;
 
+    private final FlightOrderManagementParser flightOrderManagementParser;
+
     private final FlightOfferPriceJsonFactory flightOfferPriceJsonFactory;
 
     private final FlightCreateOrderJsonFactory flightCreateOrderJsonFactory;
 
-    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser, FlightCreateOrderParser flightCreateOrderParser, FlightOfferPriceJsonFactory flightOfferPriceJsonFactory, FlightCreateOrderJsonFactory flightCreateOrderJsonFactory) {
+    public AmadeusRepository(AmadeusClient amadeusClient, FlightOfferSearchParser parser, FlightOfferPriceParser flightOfferPriceParser, FlightCreateOrderParser flightCreateOrderParser, FlightOrderManagementParser flightOrderManagementParser, FlightOfferPriceJsonFactory flightOfferPriceJsonFactory, FlightCreateOrderJsonFactory flightCreateOrderJsonFactory) {
         this.amadeusClient = amadeusClient;
         this.flightOfferSearchParser = parser;
         this.flightOfferPriceParser = flightOfferPriceParser;
         this.flightCreateOrderParser = flightCreateOrderParser;
+        this.flightOrderManagementParser = flightOrderManagementParser;
         this.flightOfferPriceJsonFactory = flightOfferPriceJsonFactory;
         this.flightCreateOrderJsonFactory = flightCreateOrderJsonFactory;
     }
@@ -68,7 +72,12 @@ public class AmadeusRepository {
         return flightCreateOrderParser.parse(json);
     }
 
-    public void flightDeleteOrder(String token, String id){
+    public void flightOrderManagement(String token, String id) {
+        String json = amadeusClient.flightOrderManagement(token, id);
+        flightOrderManagementParser.parse(json);
+    }
+
+    public void flightDeleteOrder(String token, String id) {
         amadeusClient.flightDeleteOrders(token, id);
     }
 }

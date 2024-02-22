@@ -30,7 +30,7 @@ public class BackendController {
     private int tmpVar;
 
     @GetMapping("hello")
-    public int hello(){
+    public int hello() {
         return tmpVar;
     }
 
@@ -50,25 +50,32 @@ public class BackendController {
                                                    @RequestParam(name = "departureDate") String departureDate,
                                                    @RequestParam(name = "adults") int adults, @RequestParam(name = "max") int max) {
 
-        return flightBookingService.flightOfferSearch(originLocationCode, destinationLocationCode,departureDate,
+        return flightBookingService.flightOfferSearch(originLocationCode, destinationLocationCode, departureDate,
                 adults, max);
 
     }
 
 
     @PostMapping("flightOfferPrice")
-    public FlightOfferData flightOfferPrice(@RequestBody FlightOfferData flightOfferData){
+    public FlightOfferData flightOfferPrice(@RequestBody FlightOfferData flightOfferData) {
         return flightBookingService.flightOfferPrice(flightOfferData);
     }
 
 
     @PostMapping("flightCreateOrder")
-    public String flightCreateOrder(@RequestBody CreateOrderData createOrderData){;
+    public String flightCreateOrder(@RequestBody CreateOrderData createOrderData) {
+        ;
         return flightBookingService.flightCreateOrder(createOrderData);
     }
 
+    @GetMapping("flightOrderManagement/{id}")
+    public void flightOrderManagement(@PathVariable(name = "id") String id) {
+        flightBookingService.flightOrderManagement(id);
+    }
+
     @DeleteMapping("flightDeleteOrder/{id}")
-    public void flightCreateOrder(@PathVariable(name = "id") String id){;
-         flightBookingService.flightDeleteOrder(id);
+    public void flightCreateOrder(@PathVariable(name = "id") String id) {
+        ;
+        flightBookingService.flightDeleteOrder(id);
     }
 }

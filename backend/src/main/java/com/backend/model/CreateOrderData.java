@@ -16,7 +16,7 @@ public class CreateOrderData {
 
     private List<Traveler> travelers;
 
-    private JsonNode flightOffer;
+    private FlightOfferData flightOfferData;
 
     @NoArgsConstructor
     @Getter

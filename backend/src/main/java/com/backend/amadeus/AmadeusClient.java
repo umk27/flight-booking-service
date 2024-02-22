@@ -33,6 +33,10 @@ public interface AmadeusClient {
     String flightCreateOrders(@RequestHeader(name = "Authorization") String authorization,
                               String body);
 
+    @GetMapping("v1/booking/flight-orders/{id}")
+    String flightOrderManagement(@RequestHeader(name = "Authorization") String authorization,
+                                 @PathVariable(name = "id") String id);
+
     @DeleteMapping("v1/booking/flight-orders/{id}")
     void flightDeleteOrders(@RequestHeader(name = "Authorization") String authorization,
                             @PathVariable(name = "id") String id);

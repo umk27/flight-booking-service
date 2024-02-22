@@ -47,6 +47,11 @@ public class FlightBookingService {
 
     }
 
+    public void flightOrderManagement(String id) {
+        String token = authorizationRepository.authorization();
+        amadeusRepository.flightOrderManagement(token, id);
+    }
+
     public void flightDeleteOrder(String id) {
 
         String token = authorizationRepository.authorization();

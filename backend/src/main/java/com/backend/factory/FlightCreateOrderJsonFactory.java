@@ -21,7 +21,7 @@ public class FlightCreateOrderJsonFactory {
         jRoot.put("type", "flight-order");
 
         ArrayNode jFlightOffers = mapper.createArrayNode();
-        jFlightOffers.add(createOrderData.getFlightOffer());
+        jFlightOffers.add(createOrderData.getFlightOfferData().getFlightOffer());
 
         jRoot.putArray("flightOffers").addAll(jFlightOffers);
 
