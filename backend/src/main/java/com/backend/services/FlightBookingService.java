@@ -31,6 +31,16 @@ public class FlightBookingService {
 
     }
 
+    public List<FlightOfferData> flightOfferSearch(String originLocationCode, String destinationLocationCode,
+                                                   String returnDate, String departureDate, int adults, int max) {
+
+        String token = authorizationRepository.authorization();
+
+        return amadeusRepository.flightOffersSearch(token, originLocationCode, destinationLocationCode,
+                departureDate, returnDate, adults, max);
+
+    }
+
     public FlightOfferData flightOfferPrice(FlightOfferData flightOfferData) {
 
         String token = authorizationRepository.authorization();
@@ -47,9 +57,9 @@ public class FlightBookingService {
 
     }
 
-    public void flightOrderManagement(String id) {
+    public CreateOrderData flightOrderManagement(String id) {
         String token = authorizationRepository.authorization();
-        amadeusRepository.flightOrderManagement(token, id);
+       return amadeusRepository.flightOrderManagement(token, id);
     }
 
     public void flightDeleteOrder(String id) {

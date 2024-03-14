@@ -26,14 +26,6 @@ public class BackendController {
         this.flightCreateOrderJsonFactory = flightCreateOrderJsonFactory;
     }
 
-    @Value("${tmpVar}")
-    private int tmpVar;
-
-    @GetMapping("hello")
-    public int hello() {
-        return tmpVar;
-    }
-
     @GetMapping("getIATACode")
     public String getIATACode(@RequestParam(name = "originLocation") String originLocation,
                               @RequestParam(name = "destinationLocation") String destinationLocation) {
@@ -55,6 +47,18 @@ public class BackendController {
 
     }
 
+    @GetMapping("/1/flightOfferSearch")
+    public List<FlightOfferData> flightOfferSearch(@RequestParam(name = "originLocationCode") String originLocationCode,
+                                                   @RequestParam(name = "destinationLocationCode") String destinationLocationCode,
+                                                   @RequestParam(name = "departureDate") String departureDate,
+                                                   @RequestParam(name = "returnDate") String returnDate,
+                                                   @RequestParam(name = "adults") int adults, @RequestParam(name = "max") int max) {
+
+        return flightBookingService.flightOfferSearch(originLocationCode, destinationLocationCode, departureDate,
+               returnDate, adults, max);
+
+    }
+
 
     @PostMapping("flightOfferPrice")
     public FlightOfferData flightOfferPrice(@RequestBody FlightOfferData flightOfferData) {
@@ -69,13 +73,13 @@ public class BackendController {
     }
 
     @GetMapping("flightOrderManagement/{id}")
-    public void flightOrderManagement(@PathVariable(name = "id") String id) {
-        flightBookingService.flightOrderManagement(id);
+    public CreateOrderData flightOrderManagement(@PathVariable(name = "id") String id) {
+        return flightBookingService.flightOrderManagement(id);
     }
 
     @DeleteMapping("flightDeleteOrder/{id}")
     public void flightCreateOrder(@PathVariable(name = "id") String id) {
-        ;
+
         flightBookingService.flightDeleteOrder(id);
     }
 }

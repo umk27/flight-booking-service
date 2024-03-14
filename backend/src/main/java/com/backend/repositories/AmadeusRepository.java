@@ -51,6 +51,15 @@ public class AmadeusRepository {
         return flightOfferSearchParser.parse(json);
     }
 
+    public List<FlightOfferData> flightOffersSearch(String authorization, String originLocationCode, String destinationLocationCode,
+                                                    String returnDate, String departureDate, int adults, int max) {
+
+        String json = amadeusClient.flightOffersSearch(authorization, originLocationCode, destinationLocationCode,
+                departureDate, returnDate, adults, max);
+
+        return flightOfferSearchParser.parse(json);
+    }
+
     public FlightOfferData flightOfferPrice(String token, FlightOfferData flightOfferData) {
         JsonNode flightOfferRequest = flightOfferPriceJsonFactory.build(flightOfferData.getFlightOffer());
         String str = flightOfferRequest.toString();
@@ -72,9 +81,9 @@ public class AmadeusRepository {
         return flightCreateOrderParser.parse(json);
     }
 
-    public void flightOrderManagement(String token, String id) {
+    public CreateOrderData flightOrderManagement(String token, String id) {
         String json = amadeusClient.flightOrderManagement(token, id);
-        flightOrderManagementParser.parse(json);
+        return flightOrderManagementParser.parse(json);
     }
 
     public void flightDeleteOrder(String token, String id) {
