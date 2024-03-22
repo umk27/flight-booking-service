@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, width-device-width, initial-scale=1.0,
+maximum-scale=1.0">
+    <title>TicketsInfo</title>
+    <link th:href="@{/css/add-traveler.css}" rel="stylesheet">
+</head>
+<body>
+
+<form method="POST" action="/book-tickets" target="_blank">
+    <table>
+        <tbody>
+        <td>
+            <tr>
+                <output name="id" th:text="${i}"></output>
+            </tr>
+        </td>
+        <td>
+            <tr><input name="dateOfBirth" type="text" dateOfBirth="dateOfBirth"/></tr>
+        </td>
+        <td>
+            <tr><input name="firstName" type="text" firstName="firstName"/></tr>
+        </td>
+        <td>
+            <tr>
+                <input name="lastName" type="text" lastName="lastName"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="gender" type="text" gender="gender"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="emailAddress" type="text" emailAddress="emailAddress"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="phone" type="text" phone="phone"/>
+            </tr>
+        </td>
+        </tbody>
+    </table>
+
+    <table class="document">
+        <tbody>
+        <td>
+            <tr>
+                <input name="birthPlace" type="text" birthPlace="birthPlace"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="issuanceLocation" type="text" issuanceLocation="issuanceLocation"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="issuanceDate" type="text" issuanceDate="issuanceDate"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="number" type="text" number="number"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="expiryDate" type="text" expiryDate="expiryDate"/>
+            </tr>
+        </td>
+        <td>
+            <tr>
+                <input name="issuanceCountry" type="text" issuanceCountry="issuanceCountry"/>
+            </tr>
+        </td>
+        </tbody>
+    </table>
+
+    <input type="submit" class="but" value="Далее">
+</form>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, width-device-width, initial-scale=1.0,
+maximum-scale=1.0">
+    <title>FindTickets</title>
+    <link th:href="@{/css/find-tickets.css}" rel="stylesheet">
+</head>
+<body>
+
+<form method="GET" action="/tickets-info" target="_blank">
+    <table>
+        <tbody>
+        <td>
+            <tr>Откуда</tr>
+            <tr>Куда</tr>
+            <tr>Дата отправления</tr>
+            <tr>Дата возвращения</tr>
+            <tr>Пассажиров</tr>
+            <tr>Максимум результатов</tr>
+        </td>
+        <td>
+            <tr><input name="originLocationCode" type="text" originLocationCode="originLocationCode"/></tr>
+            <tr><input name="destinationLocationCode" type="text" destinationLocationCode="destinationLocationCode"/>
+            </tr>
+            <tr><input name="departureDate" type="text" departureDate="departureDate"/></tr>
+            <tr><input name="returnDate" type="text" returnDate="returnDate"/></tr>
+            <tr><input name="adults" type="text" adults="adults"/></tr>
+            <tr><input name="max" type="text" max="max"/></tr>
+        </td>
+        </tbody>
+
+    </table>
+
+    <input type="submit" class="but" value="Найти билеты">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, width-device-width, initial-scale=1.0,
+maximum-scale=1.0">
+    <title>TicketsInfo</title>
+    <link th:href="@{/css/tickets-price.css}" rel="stylesheet">
+</head>
+<body>
+
+<button class="shares" onclick="addTravelerPage()">Ввести данные пассажиров</button>
+
+<script>
+    function addTravelerPage() {
+        document.location.href = "/add-traveler";
+    }
+</script>
+
+<div class="segmentDeparture" th:each="segment: ${flightOfferDataPrice.getItineraries().get(0).getSegments()}">
+    <table class="departure">
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getIataCode()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getIataCode()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getTerminal()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getTerminal()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getAt()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getAt()}"></output>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="segmentReturn" th:each="segment: ${flightOfferDataPrice.getItineraries().get(1).getSegments()}">
+    <table class="return">
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getIataCode()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getIataCode()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getTerminal()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getTerminal()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getAt()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getAt()}"></output>
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    <output name="price" th:text="${flightOfferDataPrice.getPrice().getTotal()}"></output>
+    <output name="price" th:text="${flightOfferDataPrice.getPrice().getCurrency()}"></output>
+</p>
+
+
+</body>
+</html>
