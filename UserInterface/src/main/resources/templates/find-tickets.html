@@ -5,36 +5,53 @@
     <meta name="viewport" content="user-scalable=yes, width-device-width, initial-scale=1.0,
 maximum-scale=1.0">
     <title>FindTickets</title>
-    <link th:href="@{/css/find-tickets.css}" rel="stylesheet">
+    <link th:href="@{/css/main-page.css}" rel="stylesheet">
 </head>
 <body>
-
+<!--<header>
+    <img class="camera" th:src="@{/images/camera.jpg}"/>
+    <h3>Введите информацию о полете</h3>
+</header>-->
 <form method="GET" action="/tickets-info" target="_blank">
     <table>
         <tbody>
-        <td>
-            <tr>Откуда</tr>
-            <tr>Куда</tr>
-            <tr>Дата отправления</tr>
-            <tr>Дата возвращения</tr>
-            <tr>Пассажиров</tr>
-            <tr>Максимум результатов</tr>
-        </td>
-        <td>
-            <tr><input name="originLocationCode" type="text" originLocationCode="originLocationCode"/></tr>
-            <tr><input name="destinationLocationCode" type="text" destinationLocationCode="destinationLocationCode"/>
-            </tr>
-            <tr><input name="departureDate" type="text" departureDate="departureDate"/></tr>
-            <tr><input name="returnDate" type="text" returnDate="returnDate"/></tr>
-            <tr><input name="adults" type="text" adults="adults"/></tr>
-            <tr><input name="max" type="text" max="max"/></tr>
-        </td>
+        <tr>
+            <td>Откуда</td>
+            <td>Куда</td>
+            <td>Дата отправления</td>
+            <td>Дата возвращения</td>
+            <td>Пассажиров</td>
+            <td>Максимум результатов</td>
+        </tr>
+        <tr>
+            <td><input name="originLocationCode" type="text" originLocationCode="originLocationCode"/></td>
+            <td><input name="destinationLocationCode" type="text" destinationLocationCode="destinationLocationCode"/>
+            </td>
+            <td><input name="departureDate" type="text" departureDate="departureDate"/></td>
+            <td><input name="returnDate" type="text" returnDate="returnDate"/></td>
+            <td><input name="adults" type="text" adults="adults"/></td>
+            <td><input name="max" type="text" max="max"/></td>
+        </tr>
+
         </tbody>
 
     </table>
-
     <input type="submit" class="but" value="Найти билеты">
+
 </form>
 
+<button class="deleteOrder" onclick="deleteOrderPage()">Удалить бронирование</button>
+<script>
+    function deleteOrderPage() {
+        document.location.href = "/delete-order";
+    }
+</script>
+
+<button class="orderInfo" onclick="orderInfoPage()">Информация о бронировании</button>
+<script>
+    function orderInfoPage() {
+        document.location.href = "/info-order";
+    }
+</script>
 </body>
 </html>

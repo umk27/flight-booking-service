@@ -78,7 +78,7 @@ public class BackendController {
     }
 
     @DeleteMapping("flightDeleteOrder/{id}")
-    public void flightCreateOrder(@PathVariable(name = "id") String id) {
+    public void flightDeleteOrder(@PathVariable(name = "id") String id) {
 
         flightBookingService.flightDeleteOrder(id);
     }

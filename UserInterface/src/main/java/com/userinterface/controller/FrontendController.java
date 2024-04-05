@@ -5,6 +5,7 @@ import com.userinterface.model.CreateOrderData;
 import com.userinterface.model.FlightOfferData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -143,5 +144,32 @@ public class FrontendController {
         return "book-tickets";
     }
 
+    @GetMapping("delete-order")
+    public String deleteOrder(){
+        return "delete-order";
+    }
+
+    @GetMapping("order-delete")
+    public String orderDelete(@RequestParam("id") String id) {
+
+        backendClient.flightDeleteOrder(id);
+
+        return "order-delete";
+    }
+
+    @GetMapping("info-order")
+    public String orderInfo(){
+        return "info-order";
+    }
+
+    @GetMapping("order-info")
+    public String orderInfo(@RequestParam("id") String id,
+                            Model model) {
+
+        CreateOrderData orderData = backendClient.flightOrderManagement(id);
+        model.addAttribute("orderData", orderData);
+
+        return "order-info";
+    }
 
 }

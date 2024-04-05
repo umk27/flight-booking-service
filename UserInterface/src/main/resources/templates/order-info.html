@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, width-device-width, initial-scale=1.0,
+maximum-scale=1.0">
+    <title>OrderInfo</title>
+    <link th:href="@{/static/order-info.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="travelers" th:each="traveler: ${orderData.getTravelers()}">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <output name="id" th:text="${traveler.getId()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="lastName" th:text="${traveler.getLastName()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="firstName" th:text="${traveler.getFirstName()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="gender" th:text="${traveler.getGender()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="birthDate" th:text="${traveler.getDateOfBirth()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="documentNumber" th:text="${traveler.getDocument().getNumber()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="nationality" th:text="${traveler.getDocument().getNationality()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="email" th:text="${traveler.getEmailAddress()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="phone" th:text="${traveler.getPhone()}"></output>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<div class="segmentDeparture" th:each="segment: ${orderData.getFlightOfferData().getItineraries().get(0).getSegments()}">
+    <table class="departure">
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getIataCode()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getIataCode()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="terminal" th:text="${segment.getDeparture().getTerminal()}"></output>
+            </td>
+            <td>
+                <output name="terminal" th:text="${segment.getArrival().getTerminal()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="at" th:text="${segment.getDeparture().getAt()}"></output>
+            </td>
+            <td>
+                <output name="at" th:text="${segment.getArrival().getAt()}"></output>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="segmentReturn" th:each="segment: ${orderData.getFlightOfferData().getItineraries().get(1).getSegments()}">
+    <table class="return">
+        <tr>
+            <td>
+                <output name="iataCode" th:text="${segment.getDeparture().getIataCode()}"></output>
+            </td>
+            <td>
+                <output name="iataCode" th:text="${segment.getArrival().getIataCode()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="terminal" th:text="${segment.getDeparture().getTerminal()}"></output>
+            </td>
+            <td>
+                <output name="terminal" th:text="${segment.getArrival().getTerminal()}"></output>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <output name="at" th:text="${segment.getDeparture().getAt()}"></output>
+            </td>
+            <td>
+                <output name="at" th:text="${segment.getArrival().getAt()}"></output>
+            </td>
+        </tr>
+    </table>
+</div>
+<p>
+    <output name="price" th:text="${orderData.getFlightOfferData().getPrice().getTotal()}"></output>
+    <output name="price" th:text="${orderData.getFlightOfferData().getPrice().getCurrency()}"></output>
+</p>
+
+</body>
+</html>
