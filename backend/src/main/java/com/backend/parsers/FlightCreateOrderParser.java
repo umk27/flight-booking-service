@@ -1,5 +1,6 @@
 package com.backend.parsers;
 
+import com.backend.exceptions.JSONParsingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +17,8 @@ public class FlightCreateOrderParser {
         try {
             jRoot = mapper.readTree(json);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+
+            throw new JSONParsingException("Ошибка JSON парсинга");
         }
 
         String id = String.valueOf(jRoot.path("data").get("id"));

@@ -1,5 +1,6 @@
 package com.backend.parsers;
 
+import com.backend.exceptions.JSONParsingException;
 import com.backend.model.CreateOrderData;
 import com.backend.model.FlightOfferData;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,7 +28,8 @@ public class FlightOrderManagementParser {
         try {
             jRoot = mapper.readTree(json);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+
+            throw new JSONParsingException("Ошибка JSON парсинга");
         }
 
         JsonNode jData = jRoot.path("data");

@@ -4,7 +4,7 @@ import com.backend.model.UserData;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "amadeusClient", url = "https://test.api.amadeus.com")
+@FeignClient(name = "amadeusClient", url = "https://test.api.amadeus.com", configuration = FeignConfig.class)
 public interface AmadeusClient {
 
     @PostMapping(value = "v1/security/oauth2/token", consumes = "application/x-www-form-urlencoded")
